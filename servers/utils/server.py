@@ -16,3 +16,9 @@ def apt_get_dist_upgrade():
 def load_average():
     ''' Displays server load avg from /proc/loadavg'''
     run('cat /proc/loadavg')
+
+
+@task
+def reboot():
+    ''' Reboots a server '''
+    sudo('reboot')
