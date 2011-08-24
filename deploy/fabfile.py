@@ -4,6 +4,8 @@ from fabric.decorators import task
 from fabric import tasks
 from fabric.contrib.project import rsync_project
 
+import secrets
+
 
 env.roledefs = {
   'dev': [
@@ -39,10 +41,9 @@ class ProductionDeployment(DemoDeployment):
   
   def refresh_code(self):
     with cd('/tmp'):
-      run('wget https://github.com/CoMoRichWebGroup/Fabric-Demos/tarball/master Fabric-Demos.tar.gz')
-      run('tar -xzf Fabric-Demos.tar.gz')
-      run('cp -R Fabric-Demos/deploy/ /srv/fabric-demo/')
-      run('rm Fabric-Demos.tar.gz')
+      run('git clone git://github.com/CoMoRichWebGroup/Fabric-Demos.git')
+      run('rm -rf /srv/fabric-demo/*')
+      run('cp -R Fabric-Demos/deploy/* /srv/fabric-demo/')
       run('rm -rf Fabric-Demos')
 
 
@@ -58,7 +59,6 @@ def deploy():
 @roles('prod')
 def production_deploy():
 
-  import secrets
   env.user     = secrets.username
   env.password = secrets.password
 
