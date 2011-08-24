@@ -1,4 +1,4 @@
 
 $ ->
   $('#clickable').click ->
-    alert "Easter Egg!"
+    alert "Easter Eggs are so 2003!"
